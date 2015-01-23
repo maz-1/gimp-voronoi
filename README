@@ -1,0 +1,178 @@
+|========================================================================|
+| voronoi v2.2 (2004-05-20)  GIMP plug-in generating Voronoi diagrams    |
+| Copyright (C) 2001-2004 Yeti (David Necas) <yeti@physics.muni.cz>      |
+|========================================================================|
+
+Voronoi is a GIMP plug-in generating Voronoi diagram of a semi-random set
+of points and offering some interesting methods of coloring it.
+
+
+Installation
+------------
+
+Requirements: Gimp 2.0 (use version 1.0 with Gimp 1.2).
+
+Untar the tar file (well I guess you've got that far already), then in the
+directory thus created type
+
+      make install
+
+to install the plug-in to the system-wide plug-in directory, or
+
+      make install-user
+
+to install it to your user plug-in directory.  You can uninstall it later by
+`make uninstall' or `make uninstall-user', respectively. When something goes
+wrong, try modify the Makefile or, if you are really desperate, the source.
+
+
+Usage
+-----
+
+This plug-in installs itself in the Filters/Render/Pattern menu as `Voronoi'.
+
+It renders Voronoi diagrams.  All Voronoi options are either self-explanatory
+or extremely crypitc.  You don't need to know what they mean, just try to
+change them and you will see.  There are/will be some images demonstrating
+effects of various parameters on project home page (see below).
+
+For the curious, a brief explanations follows:
+
+* What is a Voronoi diagram?
+
+  Imagine a finite set of points in some metric space (or just just normal
+  n-dimensional space, if you don't know much about metric spaces).  If you
+  now take any point of the space, there definitely exists a point of the set
+  which is closest to this point.  This way the set breaks the space to parts,
+  (called cells below) each consisting of points nearest to a one point of
+  the set.  This division is what is called Voronoi diagram of the set
+  (roughly).
+
+----- Graphic Options -----
+* Horizontally tileable.
+* Vertically tileable.
+
+  These options cause the image to be tileable, horizontally and/or
+  vertically.
+
+  The conditions of tileability, grid type, and image aspect ratio are
+  in general case inconsistent.  Voronoi thus can fulfil them only
+  appoximately -- you may notice deformations of large cells, but you
+  should not notice anything on smaller scales.
+
+* Coloring method.
+* Gradient.
+
+  For RGB images, you can choose between generating grayscale image and
+  and coloring the image with some gradient.  For grayscale images, only
+  grayscale output is possible, of course.
+
+  Note applying the gradient later, using `Map to gradient' filter, gives
+  slightly worse results than doing the same directly in Voronoi, especially
+  in case of gradients with very smooth or very abrupt color transitions.
+
+* Invert.
+
+  Whether the gradient (or gray scale) should be mapped inverted.
+
+----- Cells -----
+* Random seed.
+
+  Standard GIMP random seed controls.
+
+* Average cell size.
+
+  If the same number of points was placed in regular square grid, this would
+  be side of the square.  For tileable grids this is true only approximately.
+  The preview scales very large cells down (see the preview title for zoom
+  value), but it is inaccurate also in other ways for them.
+
+* Cell type.
+
+  The points can be generated completely randomly (`Random') or in a kind of
+  a grid, you can choose between `Square', `Rhomb', `Triangle (horizontal)',
+  `Triangle (vertical)', `Hexagonal (horizontal)' and `Hexagonal (vertical)'.
+  Note grid type and cell shape are complementary, trigonal grid implies
+  hexagonal cells and vice versa.
+
+----- Deformation -----
+Make sense only for non-random grids.
+
+* Randomness.
+
+  Amplitude of random displacements of the points from their perfect grid
+  positions.  It is proportional to standard deviation of the shifts.
+
+* Correlation.
+
+  Autocorrelation length of the random shifts relative to cell size.
+  Larger values mean there exists a correlation between shitfs of near
+  cell centers (the grid is deformed `smoothly'), small values mean random
+  shifts of different cells are independent.
+
+* Interstitials.
+* Vacancies.
+
+  As you know from physics of solid state, these are two dislocation types:
+  extra objects placed where no grid point should be (interstitials), and
+  missing object where one would expect one (vacancies).
+
+----- Quantities Shown -----
+OK, we have generated a Voronoi diagram and what next?  This is a GIMP
+plug-in, so we have to draw something, too.  There are several different
+quantities that can be drawn, and you can mix them freely (the weights
+are relative):
+
+* Random solid color:
+  A random solid color is assigned to each cell.
+
+* Radial distance
+  Euclidean distance from the pixel to nearest point of the set (cell center).
+
+* Segment distance:
+  Euclidean distance from the nearest border line rescaled so that border
+  always gets 1 and the cell center itself 0.
+
+* Border distance:
+  Plain Euclidean distance from the nearest border line.
+
+* Second nearest distance:
+  Euclidean distance from the second nearest object.
+
+* Scalar product:
+  Scalar product of vectors pointing to the pixel from first and second
+  nearest objects (somewhat shifted).
+
+----- Scale & Shift -----
+
+* Rescale (log).
+
+  A value to multiply the weighted sum of the above quantities by.  (The
+  scale is logarithmic if you wonder why its default value is zero.)
+
+* Shift.
+
+  Value to add to the rescaled weighted sum above.
+
+
+Some details you don't want to know
+-----------------------------------
+
+Many.  Many.  Many.
+
+
+Authors
+-------
+
+Yeti (David Necas) <yeti@physics.muni.cz>.
+
+Report bugs to <yeti@physics.muni.cz> (please include `voronoi' in subject).
+
+Web: http://trific.ath.cx/software/gimp-plugins/voronoi/
+
+
+Copying
+-------
+
+Voronoi can be copied and/or modified under the terms of GNU General
+Public License.  Please see COPYING for details.
