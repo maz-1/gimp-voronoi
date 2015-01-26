@@ -8,7 +8,7 @@ GIMPTOOL = gimptool-2.0
 
 GIMP_LDFLAGS = `$(GIMPTOOL) --libs`
 GIMP_CFLAGS = `$(GIMPTOOL) --cflags`
-EXTRA_CFLAGS = -DLOCALEDIR=\"`$(GIMPTOOL) --prefix`/share/locale\" -DVERSION=\"$(VERSION)\" -Wall -O2 -march=`uname -m`
+EXTRA_CFLAGS = -DLOCALEDIR=\"`$(GIMPTOOL) --prefix`/share/locale\" -DVERSION=\"$(VERSION)\" -Wall -O2
 
 CFLAGS = $(GIMP_CFLAGS) $(EXTRA_CFLAGS)
 LDFLAGS = $(GIMP_LDFLAGS) -lm
